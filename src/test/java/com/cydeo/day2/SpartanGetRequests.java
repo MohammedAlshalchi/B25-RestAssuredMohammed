@@ -139,12 +139,7 @@ Assertions.assertEquals("application/json",response.getContentType());
 
 
 
- /*TASK
-    Given Accept type application/xml
-    When user send GET request to /api/spartans/10 end point
-    Then status code must be 406
-    And response Content Type must be application/xml;charset=UTF-8;
-    */
+
 
 
 
