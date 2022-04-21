@@ -60,18 +60,27 @@ public class SpartanNecativeGetRequest {
     And response Content Type must be application/xml;charset=UTF-8;
     */
 
+
+
+    @DisplayName("Get request with Accept XML individual Spartan")
 @Test
     public void test2 (){
 
-    Response response = RestAssured.given().accept(ContentType.XML).when().get("/api/spartans/10");
+    Response response = RestAssured.given()
+            .accept(ContentType.XML)
+            .when().get("/api/spartans/10");
 
 
     System.out.println("response.statusCode() = " + response.statusCode());
 
     System.out.println("response.contentType() = " + response.contentType());
 
+
+// verify status code
     Assertions.assertEquals(406,response.statusCode());
 
+
+    // verify content type
 Assertions.assertEquals("application/xml;charset=UTF-8",response.contentType());
 
 
