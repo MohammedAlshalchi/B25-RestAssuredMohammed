@@ -30,12 +30,17 @@ public class Q1 extends HrTestBase {
   @Test
   public void test1() {
 
-      Response response = given().accept(ContentType.JSON)
-              .and().pathParam("id","US")
-              .when().get("/countries/{id}");
+      Response response = given()
+              .accept(ContentType.JSON)
+              .and()
+              .pathParam("id","US")
+              .when()
+              .get("/countries/{id}");
 
       assertEquals(200, response.statusCode());
       assertEquals("application/json", response.header("Content-Type"));
+
+
       JsonPath jsonPath = response.jsonPath();
       String country_id = jsonPath.getString("country_id");
       String country_name = jsonPath.getString("country_name");
@@ -45,9 +50,45 @@ public class Q1 extends HrTestBase {
       assertEquals("United States of America", country_name);
       assertEquals(2,region_id);
 
+  }
+
+  @Test
+    public void testTESTpractice(){
+     Response response = given()
+              .accept(ContentType.JSON)
+              .and()
+              .pathParam("id","US")
+              .when()
+              .get("/countries/{id}");
+
+        System.out.println(response.statusCode());
+      System.out.println("+++++++++++++++++++++++++++++++++++++");
+        System.out.println(response.header("Content-Type"));
+      System.out.println("+++++++++++++++++++++++++++++++++++++");
+        System.out.println(response.contentType());
+        System.out.println("+++++++++++++++++++++++++++++++++++++");
+        System.out.println(response.prettyPrint());
+
+      assertEquals(200,response.statusCode());
+assertEquals("application/json",response.contentType());
 
 
+JsonPath jsonPath = response.jsonPath();
+String country_id = jsonPath.getString("country_id");
+String Country_name = jsonPath.getString("country_name");
+int Region_id = jsonPath.getInt("region_id");
+
+
+
+
+assertEquals("US",country_id);
+assertEquals("United States of America",Country_name);
+assertEquals(2,Region_id);
 
   }
+
+
+
+
 
 }
