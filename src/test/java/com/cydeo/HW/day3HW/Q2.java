@@ -1,6 +1,7 @@
 package com.cydeo.HW.day3HW;
 
 import com.cydeo.utilities.HrTestBase;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -118,7 +120,25 @@ assertEquals(25,count);
     }
 
 
+    @Test
+    public void test2NEW(){
+        /*
+        - Given accept type is Json
+- Query param value - q={"department_id":80}
+- When users sends request to /employees
+- Then status code is 200
+- And Content - Type is Json
+- And all job_ids start with 'SA'
+- And all department_ids are 80
+- Count is 25
+         */
 
+        RestAssured.given().accept(ContentType.JSON).queryParam("q","{\"department_id\":80}").when()
+                .get("/employees").then().statusCode(200).and().contentType("application/json").
+                body("items.job_id",everyItem(startsWith("SA")),
+                        "items.department_id",everyItem(is(80)),"count",is(25));
+
+    }
 
 
 
