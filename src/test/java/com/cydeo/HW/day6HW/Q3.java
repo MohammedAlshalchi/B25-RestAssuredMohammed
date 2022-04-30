@@ -1,4 +1,4 @@
-package com.cydeo.HW.day6;
+package com.cydeo.HW.day6HW;
 
 public class Q3 {
     /*
