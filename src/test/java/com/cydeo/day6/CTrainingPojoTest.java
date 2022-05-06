@@ -1,4 +1,4 @@
-package com.cydeo.Day8.day6;
+package com.cydeo.day6;
 
 
 import com.cydeo.pojo.Student;
