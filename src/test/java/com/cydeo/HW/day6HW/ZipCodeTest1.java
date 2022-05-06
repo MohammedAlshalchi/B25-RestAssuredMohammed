@@ -40,7 +40,7 @@ And body should contains following information
 
     @DisplayName("solution hamcrest chaining")
 @Test
-    public void test(){
+    public void test1(){
         Response response = given().accept(ContentType.JSON)
                 .pathParam("zipCode", 22031)
                 .when().get("/us/{zipCode}")
@@ -57,18 +57,16 @@ And body should contains following information
 
         response.prettyPrint();
 
-
-
-
-
-
-
-
-
-
 }
 
+@DisplayName("solution with pojo")
+    @Test
+    public void test2(){
 
+
+
+
+    }
 
 
 
