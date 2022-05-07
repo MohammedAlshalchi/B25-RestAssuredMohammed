@@ -1,5 +1,6 @@
 package com.cydeo.HW.day6HW;
 
+import com.cydeo.pojo.StateCityPojo;
 import com.cydeo.utilities.ZippoTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -31,7 +32,7 @@ And payload should contains following information
 
     @DisplayName("solution hamcrest chaining")
     @Test
-    public void test3(){
+    public void test3A(){
       given()
               .accept(ContentType.JSON)
               .pathParam("state","va")
@@ -49,11 +50,41 @@ And payload should contains following information
                       "places.'place name'", everyItem(startsWith("Fairfax")),
                       "places.'post code'", everyItem(startsWith(22 + "")));
 
+    }
 
+
+
+    @DisplayName("solution with pojo")
+    @Test
+    public void tst3B(){
+
+   Response response =  given()
+              .accept(ContentType.JSON)
+              .get("us/va/fairfax")
+              .then()
+              .statusCode(200)
+              .and()
+              .contentType("application/json")
+
+              .extract().response();
+
+
+        StateCityPojo stateCity = response.as(StateCityPojo.class);
+
+        assertThat(stateCity.getCountryAbbreviation(),is("US"));
+        assertThat(stateCity.getCountry(),is("United States"));
+        assertThat(stateCity.getPlaceName(),is("Fairfax"));
+
+
+        stateCity.getPlaces().forEach(p-> assertThat(p.getPlaceName(),containsString("Fairfax")));
+        stateCity.getPlaces().forEach(p->assertThat(p.getPostCode(),startsWith("22")));
 
 
 
 
 
     }
+
+
+
 }

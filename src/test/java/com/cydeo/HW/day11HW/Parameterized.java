@@ -79,4 +79,32 @@ public class Parameterized {
     }
 
 
+
+    @ParameterizedTest(name = "[{index}] {arguments}")
+    @CsvSource({"NY, New York",
+            "CO, Denver",
+            "VA, Fairfax",
+            "VA, Arlington",
+            "MA, Boston",
+            "NY, New York",
+            "MD, Annapolis"})
+
+    public void test(String state, String city) {
+        //https://api.zippopotam.us/us/{state}/{city}
+        Response response = given()
+                .baseUri("https://api.zippopotam.us")
+                .pathParam("state", state)
+                .pathParam("city", city)
+                .when()
+                .get("/us/{state}/{city}")
+                .then()
+                .statusCode(200).extract().response();
+        String place_Name = response.path("'place name'");
+        Assertions.assertTrue(place_Name.contains(city));
+        List<Object> places = response.jsonPath().getList("places.'place name'");
+        System.out.println(city+": "+places.size());
+
+
+    }
+
 }
