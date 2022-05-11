@@ -9,4 +9,10 @@ public class ClassTask {
         try to use pojo as much as possible
         ignore non-used fields
      */
+
+
+
+
+
+
 }
